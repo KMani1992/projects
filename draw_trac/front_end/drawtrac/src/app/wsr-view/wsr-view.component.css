@@ -1,0 +1,20 @@
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.topMargin{
+  margin-top: 25px;
+}
+
+.topMargin_sm{
+  margin-top: 15px;
+}
+
+.nextweek-plan{
+  width: auto;
+  height: 100%;
+}

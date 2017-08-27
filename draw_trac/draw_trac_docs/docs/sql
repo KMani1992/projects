@@ -1,0 +1,13 @@
+use drawtrac;
+
+select * from component;
+select * from designation;
+select * from milestone;
+select * from priority;
+select * from task_type;
+select * from ticket_type;
+
+select * from wsr_tag;
+select * from user;
+
+select * from wsr_plan;

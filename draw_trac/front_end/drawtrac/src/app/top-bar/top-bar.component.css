@@ -1,0 +1,10 @@
+.navbar-brand{
+  
+    color: #777;
+   
+}
+
+.navbar-brand:hover {
+    
+    color: #333;
+}

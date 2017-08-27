@@ -1,0 +1,86 @@
+create database taskremainder;
+
+use drawtrac;
+
+select * from user;
+select * from designation;
+
+use taskremainder;
+
+select * from taskremaindlog order by lastupdated desc;
+
+create table user (id int unsigned not null auto_increment,name varchar(100), 
+email varchar(120),phone varchar(15),active varchar(1) default 'Y',primary key(id));
+
+-- alter table user add lastupdated timestamp not null default current_timestamp on update current_timestamp; 
+
+-- drop table taskRemaind;
+alter table taskremaindlog add fromdevice varchar(200);
+alter table taskremaindlog add hostname varchar(200);
+
+
+create table task_remaind(id int unsigned not null auto_increment,user_id int unsigned,
+lastupdated timestamp not null default current_timestamp on update current_timestamp,updatedby int unsigned,
+primary key (id),foreign key (user_id) references user(id) on update cascade,
+foreign key (updatedby) references user(id) on update cascade);
+
+-- update user set phone='9087827553' where id=2;
+
+
+-- insert into user(name,email,phone) values('Manikandan','kmanikandangce@gmail.com','9578781891');
+-- insert into user(name,email,phone) values('Giri','srgiri84@gmail.com','9578781891');
+-- insert into user(name,email,phone,active) values('Pandi','pandipaul93@gmail.com','9994396893','N');
+-- insert into user(name,email,phone) values('Jeyasingh','jeyasingh237@gmail.com','9677015501');
+-- insert into user(name,email,phone) values('Raja K','ksrajacse@gmail.com','9884981281');
+-- insert into user(name,email,phone) values('Raja Paulsamy','rajapaul31@gmail.com','9842527571');
+-- insert into user(name,email,phone) values('Thaveethu','thaveethugce@gmail.com','8870619868');
+-- insert into user(name,email,phone) values('Yoga','sriyogarajan@gmail.com','7708833164');
+
+-- delete from taskRemaind where user_id <=8;
+select * from user order by id;
+
+select * from taskRemaind order by lastupdated;
+
+insert into taskRemaind(user_id) values(1);
+insert into taskRemaind(user_id) values(2);
+insert into taskRemaind(user_id) values(3);
+insert into taskRemaind(user_id) values(4);
+insert into taskRemaind(user_id) values(5);
+insert into taskRemaind(user_id) values(6);
+insert into taskRemaind(user_id) values(7);
+insert into taskRemaind(user_id) values(8);
+
+ insert into taskRemaind(user_id) values(2);
+
+-- update user set lastupdated=current_timestamp where id<=8;
+
+update user set lastupdated='2017-08-20 10:22:17' where id=2;
+update user set lastupdated='2017-08-20 10:24:17' where id=3;
+update user set lastupdated='2017-08-20 10:25:17' where id=4;
+update user set lastupdated='2017-08-20 10:26:17' where id=5;
+update user set lastupdated='2017-08-20 10:27:17' where id=6;
+update user set lastupdated='2017-08-20 10:28:17' where id=7;
+update user set lastupdated='2017-08-20 10:29:17' where id=8;
+
+-- update user set lastupdated='2017-08-20 10:24:17' where id=2;
+
+select * from user where ACTIVE='Y' order by lastupdated,id;
+
+select u.id,u.name,tr.lastupdated from taskRemaind tr,user u where tr.user_id=u.id and u.active='Y' 
+and u.id=1 order by u.id,tr.lastupdated limit 3;
+
+-- drop trigger last_updated;
+
+delimiter |
+create trigger last_updated after insert on task_remaind
+for each row
+begin
+update user set lastupdated=new.lastupdated where id=new.user_id;
+end;
+|delimiter ;
+
+
+
+
+
+select * from taskRemaind;

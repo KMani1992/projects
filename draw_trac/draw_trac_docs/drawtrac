@@ -1,0 +1,8 @@
+use drawtrac;
+
+select * from component;
+
+-- insert into component (component_type,active) values('BodyService','Y');
+-- insert into component (component_type,active) values('ElectricalWorks','Y');
+
+-- drop table component_model;

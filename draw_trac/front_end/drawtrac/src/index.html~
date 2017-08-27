@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ctrac</title>
+  
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link href="./assets/css/indigo-pink.css" rel="stylesheet">
+  <link href="./assets/css/sb-admin.css" type="text/css" rel="stylesheet" />
+  <link href="./assets/css/sb-admin-rtl.css" type="text/css" rel="stylesheet" />
+  <link href="./assets/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+  
+    
+</head>
+<body>
+  <app-root>Loading...</app-root>
+</body>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)  -->
+    <script src="./assets/js/jquery.js" type="text/javascrpt"> </script>
+    
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./assets/js/bootstrap.min.js" type="text/javascrpt"></script>     
+    <script src="./assets/js/sb-admin-2.min.js" type="text/javascrpt"></script>
+</html>

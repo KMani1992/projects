@@ -1,0 +1,7 @@
+use trac;
+
+select * from user;
+
+-- create table user(id int,name varchar(50));
+
+-- insert into user(id,name) values(1,'Mani');

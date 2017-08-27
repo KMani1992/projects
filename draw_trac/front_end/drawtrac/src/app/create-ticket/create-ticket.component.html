@@ -1,0 +1,168 @@
+<div id="wrapper">
+  <app-top-bar></app-top-bar>
+  
+  <div style="height:100%" id="page-wrapper">
+
+<md-card class="createtcket-form">
+  <h3>Create New Ticket</h3>
+  <form [formGroup]="createTicket" class="form-group" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <md-input-container class="full-width">
+          <input mdInput #summaryRef placeholder="Bike N.o - Summary" formControlName="summary">
+        </md-input-container>
+        <div *ngIf="createTicket.controls['summary'].touched && 
+        createTicket.controls['summary'].dirty && 
+        createTicket.controls['summary'].invalid">
+          <div *ngIf="createTicket.controls['summary'].hasError('required')" class="alert alert-danger">
+            Please Enter Summary
+          </div>
+          <div *ngIf="createTicket.controls['summary'].hasError('minlength')" class="alert alert-danger">
+            Please enter atlease 20 characters of bike n.o / summary
+          </div>
+          <div *ngIf="createTicket.controls['summary'].hasError('maxlength')" class="ale                                                                                                                                                                                                                                                                                                                                                                                                                                                                     rt alert-danger">
+            Summary cant exceed 100 characters
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <md-input-container class="full-width">
+          <textarea mdInput rows="5" placeholder="Description" formControlName="description"></textarea>
+        </md-input-container>
+        <div *ngIf="createTicket.controls['description'].touched && 
+        createTicket.controls['description'].dirty && 
+        createTicket.controls['description'].invalid">
+          <div *ngIf="createTicket.controls['description'].hasError('required')" class="alert alert-danger">
+            Please Enter Discription
+          </div>
+          <div *ngIf="createTicket.controls['description'].hasError('minlength')" class="alert alert-danger">
+            Please enter atlease 25 characters of summary
+          </div>
+          <div *ngIf="createTicket.controls['description'].hasError('maxlength')" class="alert alert-danger">
+            Description cant exceed 10000 characters
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 topMargin">
+        <md-select placeholder="Component" class="full-width" formControlName="component">
+          <md-option *ngFor="let comp of components" [value]="comp.component_id">
+            {{ comp.component_type }}
+          </md-option>
+        </md-select>
+        <div *ngIf="createTicket.controls['component'].touched && 
+        createTicket.controls['component'].dirty && 
+        createTicket.controls['component'].invalid">
+          <div *ngIf="createTicket.controls['component'].hasError('required')" class="alert alert-danger">
+            Please Choose Component
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 topMargin">
+        <md-select placeholder="Ticket Type" class="full-width" formControlName="ticket_type">
+          <md-option *ngFor="let ticktyp of ticketType" [value]="ticktyp.ticket_type_id">
+            {{ ticktyp.ticket_type }}
+          </md-option>
+        </md-select>
+        <div *ngIf="createTicket.controls['ticket_type'].touched && 
+        createTicket.controls['ticket_type'].dirty && 
+        createTicket.controls['ticket_type'].invalid">
+          <div *ngIf="createTicket.controls['ticket_type'].hasError('required')" class="alert alert-danger">
+            Please Choose Ticket Type
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 topMargin">
+        <md-select placeholder="Owner" class="full-width " formControlName="owner">
+          <md-option *ngFor="let user of users" [value]="user.user_id">
+            {{ user.userName }}
+          </md-option>
+        </md-select>
+        <div *ngIf="createTicket.controls['owner'].touched && 
+        createTicket.controls['owner'].dirty && 
+        createTicket.controls['owner'].invalid">
+          <div *ngIf="createTicket.controls['owner'].hasError('required')" class="alert alert-danger">
+            Please Choose Owner
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 topMargin">
+        <md-select multiple placeholder="CC" class="full-width" formControlName="cc">
+          <md-option *ngFor="let user of users" [value]="user.user_id">
+            {{ user.userName }}
+          </md-option>
+        </md-select>
+        <div *ngIf="createTicket.controls['cc'].touched && 
+        createTicket.controls['cc'].dirty && 
+        createTicket.controls['cc'].invalid">
+          <div *ngIf="createTicket.controls['cc'].hasError('required')" class="alert alert-danger">
+            Please Choose CC Peoples
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 topMargin_sm">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Keywords" formControlName="keywords">
+        </md-input-container>
+      </div>
+      <div class="col-md-6 topMargin">
+        <md-select placeholder="Priority" class="full-width" formControlName="priority">
+          <md-option *ngFor="let pri of priorities" [value]="pri.priority_id">
+            {{ pri.priority_type }}
+          </md-option>
+        </md-select>
+        <div *ngIf="createTicket.controls['priority'].touched && 
+        createTicket.controls['priority'].dirty && 
+        createTicket.controls['priority'].invalid">
+          <div *ngIf="createTicket.controls['priority'].hasError('required')" class="alert alert-danger">
+            Please Choose Ticket Type
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Target Date" type="date" formControlName="target_date">
+        </md-input-container>
+        <div *ngIf="createTicket.controls['target_date'].touched && 
+        createTicket.controls['target_date'].dirty && 
+        createTicket.controls['target_date'].invalid">
+          <div *ngIf="createTicket.controls['target_date'].hasError('required')" class="alert alert-danger">
+            Please Enter Target Date
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 topMargin">
+        <md-select placeholder="Milstone" class="full-width" formControlName="milestone">
+          <md-option *ngFor="let milestone of milestones" [value]="milestone.milestone_id">
+            {{ milestone.milestone_type }}
+          </md-option>
+        </md-select>
+        <div *ngIf="createTicket.controls['milestone'].touched && 
+        createTicket.controls['milestone'].dirty && 
+        createTicket.controls['milestone'].invalid">
+          <div *ngIf="createTicket.controls['milestone'].hasError('required')" class="alert alert-danger">
+            Please Choose Milestone
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 topMargin">
+        <button type="submit" [disabled]="!createTicket.valid" md-raised-button>Create Ticket</button>
+      </div>
+    </div>
+  </form>
+  <div class="full-width alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+</md-card>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<md-card class="reatetcket-form">
+  <h3>View Ticket</h3>
+  <form [formGroup]="viewTicket" class="form-group" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-3 topMargin">
+        <md-select multiple placeholder="Component" class="full-width" formControlName="component">
+          <md-option *ngFor="let comp of components" [value]="comp.component_id">
+            {{ comp.component_type }}
+          </md-option>
+        </md-select>        
+      </div>
+      <div class="col-md-3 topMargin">
+        <md-select multiple placeholder="Ticket Type" class="full-width" formControlName="ticket_type">
+          <md-option *ngFor="let ticktyp of ticketType" [value]="ticktyp.ticket_type_id">
+            {{ ticktyp.ticket_type }}
+          </md-option>
+        </md-select>        
+      </div>
+      <div class="col-md-3 topMargin">
+        <md-select multiple placeholder="Owner" class="full-width " formControlName="owner">
+          <md-option *ngFor="let user of users" [value]="user.user_id">
+            {{ user.userName }}
+          </md-option>
+        </md-select>        
+      </div>
+      <div class="col-md-3 topMargin">
+        <md-select multiple  placeholder="Priority" class="full-width" formControlName="priority">
+          <md-option *ngFor="let pri of priorities" [value]="pri.priority_id">
+            {{ pri.priority_type }}
+          </md-option>
+        </md-select>        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 topMargin">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Target Date Lessthan Equal To ( < = )" type="date" formControlName="target_date">
+        </md-input-container>        
+      </div>
+      <div class="col-md-3 topMargin">
+        <md-select multiple placeholder="Milstone" class="full-width" formControlName="milestone">
+          <md-option *ngFor="let milestone of milestones" [value]="milestone.milestone_id">
+            {{ milestone.milestone_type }}
+          </md-option>
+        </md-select>        
+      </div>
+
+      <div *ngIf="visibleSelectOpt==0" class="col-md-3 topMargin">
+         <md-checkbox class="full-width"  formControlName="tskclosed">Closed</md-checkbox>
+      </div>
+
+      <div class="col-md-3 topMargin">
+        <button type="submit" md-raised-button>View Ticket</button>
+      </div>
+    </div>
+  </form>
+  <div class="full-width alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+</md-card>
+<md-card>
+  <h4>Tickets</h4>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#Ticket ID</th>
+      <th>Bike N.o - Summary</th>
+      <th>Description</th>
+      <th>Ticket Type</th>      
+      <th>Owner</th>
+      <th>Milestone</th>
+      <th>Priority</th>
+      <th>Target Date</th>
+      <th>Component</th>
+      <th *ngIf="visibleSelectOpt==0">Is Closed</th>
+      <th *ngIf="visibleSelectOpt==1">Option</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of ticketView">
+        <td>{{ticket.ticket_id}}</td>
+        <td>{{ticket.summary}}</td>
+        <td>{{ticket.description}}</td>
+        <td>{{ticket.ticket_type}}</td>
+        <td>{{ticket.userName}}</td>
+        <td>{{ticket.milestone_type}}</td>
+        <td>{{ticket.priority_type}}</td>
+        <td>{{ticket.target_date}}</td>
+        <td>{{ticket.component_type}}</td>
+        <td *ngIf="visibleSelectOpt==0">{{ticket.closed}}</td>
+        <td *ngIf="visibleSelectOpt==1"><a (click)="sendSelTicket(ticket)" > Select</a></td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+</md-card>

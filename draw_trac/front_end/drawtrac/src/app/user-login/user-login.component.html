@@ -1,0 +1,57 @@
+
+       <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" routerLink="/">DRAW Task Manager</a>
+            </div>
+            <!-- /.navbar-header -->
+      </nav>
+
+<div class="container">
+  <div class="container-fluid half-width">
+
+<md-card class="reatetcket-form">
+  <h3>Welcome</h3>
+  <form [formGroup]="userLogin" class="form-group" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="User Name" formControlName="userName" [(ngModel)]="authUser.userName">
+        </md-input-container>
+        
+        
+        <div *ngIf="userLogin.controls['userName'].touched && 
+        userLogin.controls['userName'].dirty && 
+        userLogin.controls['userName'].invalid" class="alert alert-danger">
+          Please Enter User Name
+        </div>        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <md-input-container class="full-width">
+          <input mdInput type="password" placeholder="Password" formControlName="password" [(ngModel)]="authUser.password">
+        </md-input-container>
+        <div *ngIf="userLogin.controls['password'].touched && 
+        userLogin.controls['password'].dirty && 
+        userLogin.controls['password'].invalid" class="alert alert-danger">
+          Please Enter Password
+        </div>        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 topMargin">
+        <button type="submit" [disabled]="!userLogin.valid" md-raised-button (click)="login()">Login</button>
+      </div>
+    </div>
+  </form>
+  <div class="full-width alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+</md-card>
+  </div>
+</div>

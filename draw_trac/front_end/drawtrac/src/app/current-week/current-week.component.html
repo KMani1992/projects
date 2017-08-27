@@ -1,0 +1,117 @@
+<div id="wrapper">
+  <app-top-bar></app-top-bar>
+  <div style="height:100%" id="page-wrapper">
+  <app-filter-ticket [visibleSelectOpt]="1" (selTicket)='handleEvent($event)'></app-filter-ticket> 
+  <md-card class="nextweek-plan">
+  <h3>Plan Ticket</h3>  
+    <div class="row">
+      <div class="col-md-3 topMargin">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="From Date" [(ngModel)]="fromDt" type="date">
+        </md-input-container>
+      </div>
+      <div class="col-md-3 topMargin">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="To Date" [(ngModel)]="toDt" type="date">
+        </md-input-container>
+      </div>      
+      <div class="col-md-3 topMargin">
+        <md-select multiple placeholder="Task Type" [(ngModel)]="taskTypeCode" class="full-width">
+          <md-option *ngFor="let task of taskType" [value]="task.task_type_id">
+            {{ task.task_type_name }}
+          </md-option>
+        </md-select>        
+      </div>
+      <div class="col-md-3 topMargin">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Total Weeks [ Hours ]  Spent" [(ngModel)]='totalWeeksHrsSpent' disabled>
+        </md-input-container>
+      </div>      
+    </div>  
+    
+    <div class="row">      
+
+      <div class="col-md-3 topMargin">        
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Planned Time" [(ngModel)]="plannedTimetoSpent">
+        </md-input-container>
+      </div>
+
+      <div class="col-md-3 topMargin">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Time Spent" [(ngModel)]="timeSpent">
+        </md-input-container>
+      </div>      
+      <div class="col-md-3 topMargin">
+        <md-input-container class="full-width">
+          <textarea mdInput placeholder="Planned" [(ngModel)]="planned"></textarea>
+        </md-input-container>        
+      </div>
+      <div class="col-md-3 topMargin">
+        <md-input-container class="full-width">
+          <textarea mdInput placeholder="Completed" [(ngModel)]="completed"></textarea>
+        </md-input-container>        
+      </div>      
+    </div>
+    <div class="row">      
+      <div class="col-md-3 topMargin">
+         <md-checkbox class="full-width" [(ngModel)]="unplanned">Unplanned</md-checkbox>
+      </div>
+      <div class="col-md-3 topMargin">
+         <md-checkbox class="full-width" [(ngModel)]="closed">Closed</md-checkbox>
+      </div>
+      <div class="col-md-6 topMargin">
+          <button md-raised-button class="full-width" (click)="addPlan()" >Update to Plan</button>
+      </div>
+    </div>
+  </md-card>
+  <md-card>
+  <h4>Current Week #({{weekTagId}}) Plan</h4>
+  <div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#Ticket ID</th>
+      <th>Bike N.o - Summary</th>
+      <th>From</th>
+      <th>To</th>      
+      <th>Hrs Planned </th>
+      <th>Hrs Spent</th>
+      <th>Tot Hrs Spent Prev</th>
+      <th>Tot Weeks Spent</th>
+      <th>Task Types</th>
+      <th>Is Unplanned</th>
+      <th>Is Closed</th>
+      <th>Planned</th>
+      <th>Completed</th>
+      <th>Option</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let currWeekPlan of currentWeekPlanRows">
+        <td>{{currWeekPlan.ticketId}}</td>
+        <td>{{currWeekPlan.summary}}</td>
+        <td>{{currWeekPlan.fromDt}}</td>
+        <td>{{currWeekPlan.toDt}}</td>      
+        <td>{{currWeekPlan.hours_planned}}</td>  
+        <td>{{currWeekPlan.time_spent}}</td>
+        <td>{{currWeekPlan.total_time_spent}}</td>        
+        <td>{{currWeekPlan.no_of_week_planned}}</td>
+        <td>{{currWeekPlan.task_type}}</td>
+        <td>{{currWeekPlan.isunplanned}}</td>
+        <td>{{currWeekPlan.isclosed}}</td>
+        <td>{{currWeekPlan.planned}}</td>
+        <td>{{currWeekPlan.completed}}</td>
+        <td><span><a (click)="editWSR(currWeekPlan)">Edit</a>
+        </span> | <span><a (click)="removeWSR(currWeekPlan)">Remove</a></span></td>
+      </tr>
+    </tbody>
+  </table>  
+</div>
+<div class="topMargin">
+    <button md-raised-button class="full-width" (click)="saveNxtWeekPlan()" >Save Current Week Plan</button>
+</div>
+</md-card>
+  </div>
+</div>
+

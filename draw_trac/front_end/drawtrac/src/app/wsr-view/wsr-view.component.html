@@ -1,0 +1,71 @@
+<div id="wrapper">
+  <app-top-bar></app-top-bar>
+<div id="page-wrapper">
+<md-card>
+  <h4>WSR View</h4>
+  <br/>
+  <div class="row">
+    
+    <div class="col-md-3">
+      <md-select multiple placeholder="Week Tag Id" [(ngModel)]="selWeekTag" class="full-width">
+        <md-option *ngFor="let week of wsrTagId" [value]="week">
+          {{ week }}
+        </md-option>
+      </md-select>        
+    </div>
+
+    <div  class="col-md-3">
+        <button md-raised-button class="full-width" (click)="viewWSR()" >View WSR</button>
+    </div>
+    
+  </div>
+  <div class="row">
+    <div class="topMargin full-width alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+  </div>
+
+  <div class="table-responsive topMargin">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#Ticket ID</th>
+      <th>Bike N.o - Summary</th>
+      <th>From</th>
+      <th>To</th>      
+      <th>Hrs Planned </th>
+      <th>Hrs Spent</th>
+      <th>Tot Hrs Spent Prev</th>
+      <th>Tot Weeks Spent</th>
+      <th>Task Types</th>
+      <th>Is Unplanned</th>
+      <th>Is Closed</th>
+      <th>Planned</th>      
+      <th>Completed</th>      
+      <th>Week</th>
+      <th>Tag ID</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let wsrView of wsrView">
+        <td>{{wsrView.ticketId}}</td>
+        <td>{{wsrView.summary}}</td>
+        <td>{{wsrView.from_date}}</td>
+        <td>{{wsrView.to_date}}</td>      
+        <td>{{wsrView.hours_planned}}</td>  
+        <td>{{wsrView.time_spent}}</td>
+        <td>{{wsrView.total_time_spent}}</td>        
+        <td>{{wsrView.no_of_week_planned}}</td>
+        <td>{{wsrView.task_type}}</td>
+        <td>{{wsrView.unplanned}}</td>
+        <td>{{wsrView.closed}}</td>        
+        <td>{{wsrView.planned}}</td>
+        <td>{{wsrView.completed}}</td>        
+        <td>{{wsrView.week_flag}}</td>
+        <td>{{wsrView.tagId}}</td>        
+      </tr>
+    </tbody>
+  </table>  
+</div>
+
+</md-card>
+</div>
+</div>
