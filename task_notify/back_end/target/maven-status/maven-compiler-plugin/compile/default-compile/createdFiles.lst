@@ -1,0 +1,7 @@
+com/tasknotify/model/Taskremaindlog.class
+com/tasknotify/model/LastTaskUpdRpt.class
+com/tasknotify/crudinterface/UserCRUDInterface.class
+com/tasknotify/TasknotifyApplication.class
+com/tasknotify/crudinterface/TaskRemainderCRUDInterface.class
+com/tasknotify/controller/TaskNotifyController.class
+com/tasknotify/service/TaskNotifyService.class

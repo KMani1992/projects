@@ -1,0 +1,204 @@
+use drawtrac;
+
+
+select coalesce(count(*),0) as totalTicket from ticket;
+select coalesce(count(*),0) as completed from ticket where closed='Y';
+
+select * from wsr_plan;
+
+-- update ticket set cc='2,3' where ticket_id in(2,3);
+
+select sum(no_of_week_planned) as no_of_week_planned from wsr_plan where ticket_id=1;
+, sum(total_time_spent)  from wsr_plan group by ticket_id;
+
+select t.summary,wp.* from wsr_plan wp,ticket t where wp.ticket_id=t.ticket_id;
+
+select * from ticket;
+select DISTINCT(tag_id) as tagID from wsr_plan;
+
+select * from wsr_plan;
+
+update ticket set closed='Y' where ticket_id in (1);
+
+-- alter table ticket add column closed varchar(1) default 'N';
+
+select coalesce(sum(total_time_spent),0) from wsr_plan where ticket_id=2;
+
+-- update wsr_plan set no_of_week_planned=1 where id in(1,2,3,4);
+
+-- update user set user_name='Manikandan' where user_id=1;
+
+select curdate();
+
+select CONCAT(YEAR(curdate()) , 'W' , week(curdate())) as week;
+
+ 
+select * from component;
+
+select * from ticket_type;
+
+select * from task_type;
+
+select id,ticket_id,from_date,to_date,task_type,unplanned,hours_planned,time_spent,total_time_spent,
+no_of_week_planned,tl_approval,tl_comments,stl_approval,stl_comments,
+planned,completed,tag_id from wsr_plan where week_flag='N' 
+and tag_id=(select max(tag_id) from wsr_plan where week_flag='N');
+
+
+
+
+select * from user;
+
+alter table wsr_plan add tag_id int;
+update wsr_plan set tag_id=201731 where id=1;
+alter table wsr_plan drop column tag_id;
+alter table wsr_plan MODIFY column tag_id varchar(120);
+
+CREATE TABLE `wsr_tag` (
+  `tag_id` int(11) DEFAULT NULL,
+  `tag_name` varchar(50) DEFAULT NULL,
+  `active` varchar(1) DEFAULT NULL,
+  `tag_status` varchar(50) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ drop table wsr_plan;
+
+-- drop table task_type;
+
+CREATE TABLE `task_type` (
+  `task_type_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `task_type_name` varchar(100) DEFAULT NULL,
+  `active` varchar(1) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`task_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- insert into task_type(task_type_name,active,user_id) values('Issue Analysis','Y',1);
+insert into task_type(task_type_name,active,user_id) values('Lath Work','Y',1);
+insert into task_type(task_type_name,active,user_id) values('Painting Work','Y',1);
+insert into task_type(task_type_name,active,user_id) values('Tinkering/welding work','Y',1);
+insert into task_type(task_type_name,active,user_id) values('Seet','Y',1);
+insert into task_type(task_type_name,active,user_id) values('Electrical/Electronics','Y',1);
+insert into task_type(task_type_name,active,user_id) values('Cleaning','Y',1);
+insert into task_type(task_type_name,active,user_id) values('verify/Trail','Y',1);
+
+-- insert into ticket_type(ticket_type,active) values('New Work','Y');
+-- insert into ticket_type(ticket_type,active) values('Work Mistake','Y');
+
+
+select * from milestone;
+
+
+-- insert into milestone(milestone_type,active) values('Deliver EOD','Y');
+-- insert into milestone(milestone_type,active) values('Full Condition','Y');
+-- insert into milestone(milestone_type,active) values('No Repeated Faults','Y');
+
+select * from designation;
+-- insert into designation(designation_name,active) values('Enginer','Y');
+-- insert into designation(designation_name,active) values('Manager','Y');
+-- insert into designation(designation_name,active) values('Team Lead','Y');
+-- insert into designation(designation_name,active) values('Seniour Team Lead','Y');
+
+select * from user;
+
+-- alter table user add column designation int;
+
+-- insert into user (user_name,password,tlid,stlid,manager,active,designation) values('Manikadan','Kmani123$',3,4,2,'Y',1);
+-- insert into user (user_name,password,tlid,stlid,manager,active,designation) values('DuraiRaj','durai123$',3,4,2,'Y',1);
+-- insert into user (user_name,password,tlid,stlid,manager,active,designation) values('Kandeepan','kandeepan123$',0,0,0,'Y',2);
+
+select * from priority;
+-- insert into priority(priority_type,active) values('Mid','Y');
+-- insert into priority(priority_type,active) values('Low','Y');
+-- insert into priority(priority_type,active) values('High','Y');
+
+select t.ticket_id,t.summary,t.description,tt.ticket_type,u.user_name,
+m.milestone_type,p.priority_type,t.target_date,c.component_type
+ from ticket as t left join ticket_type as tt on t.ticket_type=tt.ticket_type_id 
+ left join user u on t.owner= u.user_id
+ left join milestone m on t.milestone=m.milestone_id
+ left join priority p on t.priority=p.priority_id 
+ left join component c on t.component=c.component_id where t.target_date<='2017-06-28'
+ and t.ticket_type in (1,2,3) and t.owner in (1,2,3) and t.milestone in (1,2,3)
+ and t.priority in (1,2,3) and t.component in (1,2,3) and t.ticket_id =1;
+
+select * from ticket as t where target_date<='2017-05-28';
+
+select t.ticket_id,t.summary from ticket as t , ticket_type as tt where t.ticket_type=tt.ticket_type_id
+
+select ifnull(no_of_week_planned,0),ifnull(total_time_spent,0) from wsr_plan;
+
+select * from wsr_plan;
+
+CREATE TABLE `wsr_plan`(
+`id`	int	unsigned not null AUTO_INCREMENT,
+`ticket_id`	int,
+`from_date`	datetime,	
+`to_date`	datetime,	
+`task_type`	varchar(20),
+`unplanned`	varchar(1),
+`hours_planned`	int,	
+`time_spent`	int,	
+`total_time_spent`	int,	
+`no_of_week_planned`	int,	
+`week_flag`	varchar(1),	
+`tl_approval`	varchar(1),		
+`tl_comments`	varchar(250),	
+`stl_approval`	varchar(1),	
+`stl_comments`	varchar(250),	
+`planned`	varchar(250),
+`completed`	varchar(250),
+`last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`tag_id` varchar(10) NOT NULL,
+primary key (`id`)
+);
+
+select CONCAT(YEAR(curdate()) , 'W' , week(curdate()));
+
+-- insert into wsr_plan(ticket_id,from_date,to_date,task_type,unplanned,hours_planned,time_spent,total_time_spent,
+no_of_week_planned,week_flag,tl_approval,tl_comments,stl_approval,stl_comments,planned,completed,tag_id)
+ values (1,'2017-07-10','2017-07-12','1','N',2,0,0,1,'N','N','','N','','Need to Implement','','17W32');
+
+select t.ticket_id,t.summary,t.description,
+	 tt.ticket_type,u.user_name,m.milestone_type,p.priority_type,
+	 t.target_date,c.component_type from ticket t,ticket_type tt,
+	 user u,milestone m,priority p,component c where t.owner = u.user_id and t.milestone=m.milestone_id
+	 and t.priority=p.priority_id and t.component=c.component_id and t.ticket_type=tt.ticket_type_id
+	 and t.component in(1,2,3) and t.ticket_type in(1,2,3) and t.owner in(1,2,3) and t.priority in(1,2,3)
+	 and t.target_date<='2017-07-8' and t.milestone in(1,2,3);
+
+
+-- truncate table ticket;
+-- alter table ticket drop column name;
+
+-- drop table ticket;
+
+ /*CREATE TABLE `ticket` (
+ `ticket_id` int auto_increment,
+ `summary` varchar(150) DEFAULT NULL,
+  `description` varchar(250) DEFAULT NULL,
+  `ticket_type` int(11) DEFAULT NULL,
+  `tag_name` varchar(100) DEFAULT NULL,
+  `owner` int(11) DEFAULT NULL,
+  `cc` varchar(100) DEFAULT NULL,
+  `milestone` int(11) DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
+  `target_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `component` int(11) DEFAULT NULL,
+  `reporter` int(11) DEFAULT NULL,
+  `name` varchar(10) DEFAULT NULL,
+PRIMARY KEY (`ticket_id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;*/
+
+-- alter table ticket drop column ticket_id;
+
+-- alter table ticket add column keywords varchar(150);
+
+-- insert into ticket(summary,description,ticket_type,tag_name,
+-- owner, cc,milestone,priority,target_date,component,reporter)
+--  values('Test Ticket','Test Ticket Description',1,'',1,'2,3',1,1,'2017-06-01',1,1);
+
+
+
